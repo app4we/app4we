@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>App4We – Small apps. Useful ideas.</title>
+<meta name="description" content="App4We is an independent app studio. We create simple and practical apps that solve real everyday problems.">
+<link rel="icon" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1663f2;
+  --blue-deep:#0b4fd8;
+  --blue-soft:#e9f1ff;
+  --ink:#0a1230;
+  --text:#4a536b;
+  --muted:#6b7389;
+  --white:#ffffff;
+  --line:#e3e8f3;
+  --radius-lg:28px;
+  --radius-md:18px;
+  --font:"Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --hand:"Kalam", "Comic Sans MS", cursive;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.5}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1220px,100% - 48px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:8px}
+
+/* ---------- image placeholder (shown until you add the real file) ---------- */
+.ph{display:flex;align-items:center;justify-content:center;text-align:center;border:2px dashed #9db8f5;border-radius:24px;background:rgba(255,255,255,.55);color:var(--blue-deep);font:600 13px/1.4 var(--font);padding:16px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:12px 22px;border-radius:12px;transition:transform .15s,box-shadow .15s,background .15s}
+.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 20px -8px rgba(22,99,242,.7)}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 6px 18px -10px rgba(10,18,48,.25)}
+.btn-ghost:hover{transform:translateY(-1px)}
+.btn-sm{padding:8px 18px;font-size:14px;border-radius:10px}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(227,232,243,.7)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:26px;letter-spacing:-.02em}
+.logo svg{width:44px;height:36px}
+.nav-links{display:flex;align-items:center;gap:30px;font-weight:500;font-size:15px}
+.nav-links a:not(.btn):hover{color:var(--blue)}
+.menu-btn{display:none;background:none;border:0;padding:8px;cursor:pointer}
+.menu-btn svg{width:26px;height:26px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:
+  radial-gradient(900px 500px at 15% 20%,#ffffff 0%,transparent 60%),
+  radial-gradient(700px 500px at 85% 70%,#d9e7ff 0%,transparent 70%),
+  linear-gradient(180deg,#eef4ff 0%,#dfeaff 100%)}
+.hero::after{content:"";position:absolute;inset:auto -10% -40% -10%;height:60%;background:radial-gradient(closest-side,rgba(255,255,255,.7),transparent);pointer-events:none}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:20px;min-height:440px;padding:40px 0 30px}
+.kicker{font-weight:600;font-size:14px;letter-spacing:.06em;color:#3a425a;margin:0 0 10px}
+.hero h1{margin:0;font-size:clamp(44px,6.2vw,72px);line-height:.95;font-weight:800;letter-spacing:-.035em}
+.hero h1 span{display:block;color:var(--blue)}
+.hero .lead{font-size:clamp(17px,1.6vw,20px);color:var(--text);max-width:30ch;margin:18px 0 26px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:16px}
+.pillars{display:flex;flex-wrap:wrap;gap:0;margin-top:32px}
+.pillar{display:flex;align-items:center;gap:12px;padding-right:26px;margin-right:26px;border-right:1px solid #c9d6ef;color:#2a3a6b;font-weight:500;font-size:15px;line-height:1.2}
+.pillar:last-child{border:0;margin:0;padding:0}
+.pillar svg{width:34px;height:34px;color:var(--blue);flex:none}
+
+.hero-art{position:relative;height:420px}
+.hero-art .poloshi{position:absolute;left:20%;bottom:-30px;width:300px;height:400px;object-fit:contain;filter:drop-shadow(0 30px 30px rgba(11,79,216,.25))}
+.hero-art .ph.poloshi{height:380px}
+.hello{position:absolute;left:-6%;top:38%;font-family:var(--hand);font-size:30px;line-height:1.05;color:var(--ink);transform:rotate(-12deg)}
+.hello svg{width:60px;height:40px;margin:4px 0 0 70px;color:var(--blue)}
+.bulb{position:absolute;left:58%;top:-6px;width:96px}
+.tiles{position:absolute;right:-60px;top:30px;width:260px;height:260px}
+.tile{position:absolute;width:96px;height:96px;border-radius:24px;display:grid;place-items:center;box-shadow:0 18px 30px -12px rgba(10,30,90,.45), inset 0 -6px 0 rgba(0,0,0,.12), inset 0 2px 0 rgba(255,255,255,.35)}
+.tile svg{width:48px;height:48px}
+.t1{left:40px;top:0;background:linear-gradient(145deg,#4b8dff,#1663f2);transform:rotate(-8deg)}
+.t2{left:160px;top:40px;background:linear-gradient(145deg,#4fe1a6,#1cbf7c);transform:rotate(10deg)}
+.t3{left:0;top:120px;background:linear-gradient(145deg,#8a6bff,#5b3be6);transform:rotate(-6deg)}
+.t4{left:120px;top:160px;background:linear-gradient(145deg,#ffd257,#ffa31a);transform:rotate(8deg)}
+.note{position:absolute;right:-10px;bottom:30px;font-family:var(--hand);font-size:24px;line-height:1.15;color:var(--blue-deep);background:rgba(255,255,255,.55);padding:16px 20px;border-radius:30px;transform:rotate(-10deg);text-align:center}
+.note::after{content:"";display:block;height:4px;width:60%;margin:8px auto 0;background:var(--blue);border-radius:4px;transform:rotate(-4deg)}
+
+/* ---------- app section ---------- */
+.app{position:relative;background:linear-gradient(180deg,#f7f9fd 0%,#f1f5fc 100%);overflow:hidden}
+.app-grid{display:grid;grid-template-columns:1.1fr .6fr .9fr;align-items:center;gap:20px;padding:40px 0 0}
+.app-info{display:flex;gap:28px;align-items:flex-start;padding-bottom:40px}
+.app-icon{flex:none;width:122px;height:122px;border-radius:30px;background:linear-gradient(150deg,#3f85ff,#0b4fd8);display:grid;place-items:center;box-shadow:0 20px 34px -14px rgba(11,79,216,.7), inset 0 -6px 0 rgba(0,0,0,.15)}
+.app-icon svg{width:70px;height:70px}
+.eyebrow{font-weight:600;font-size:13px;letter-spacing:.08em;color:var(--muted);margin:0}
+.app h2{margin:4px 0 2px;font-size:clamp(30px,3.4vw,38px);letter-spacing:-.03em;line-height:1.1}
+.app .sub{font-size:21px;font-weight:500;color:#424b63;margin:0 0 14px}
+.app p.desc{color:var(--text);font-size:16px;margin:0 0 16px;max-width:46ch}
+.stores{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.store{display:inline-flex;align-items:center;gap:10px;background:#000;color:#fff;border-radius:9px;padding:7px 16px 7px 12px;min-width:142px;border:1px solid #444}
+.store svg{width:26px;height:26px;flex:none}
+.store small{display:block;font-size:10px;line-height:1}
+.store b{display:block;font-size:19px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+.store:hover{background:#1a1a1a}
+
+/* phone built in HTML/CSS */
+.phone{justify-self:center;width:210px;height:330px;align-self:end;border-radius:36px 36px 0 0;background:#1d1f24;padding:9px 9px 0;box-shadow:0 20px 40px -10px rgba(10,18,48,.4);transform:rotate(4deg) translateY(10px)}
+.screen{height:100%;background:#f4f6fb;border-radius:28px 28px 0 0;padding:12px 10px 0;overflow:hidden;position:relative}
+.island{width:70px;height:18px;background:#000;border-radius:12px;margin:0 auto 8px}
+.screen header{position:static;background:#fff;border:0;border-radius:12px;padding:8px;display:flex;gap:8px;align-items:center;font-weight:700;font-size:13px;margin-bottom:8px;backdrop-filter:none}
+.mini{width:26px;height:26px;border-radius:8px;background:linear-gradient(150deg,#3f85ff,#0b4fd8);display:grid;place-items:center}
+.mini svg{width:16px;height:16px}
+.row{display:flex;align-items:center;gap:8px;background:#fff;border-radius:9px;padding:6px 8px;margin-bottom:5px;font-size:11px;font-weight:500}
+.row i{width:18px;height:18px;border-radius:5px;display:inline-block;flex:none}
+.row::after{content:"›";margin-left:auto;color:#a5adbf}
+
+.app-art{position:relative;height:330px;align-self:end}
+.app-art .poloshi2{position:absolute;left:0;bottom:0;width:280px;height:320px;object-fit:contain}
+.app-art .note2{position:absolute;right:0;top:20px;font-family:var(--hand);font-size:23px;line-height:1.2;color:var(--blue-deep);transform:rotate(-8deg)}
+.note2::after{content:"";display:block;height:4px;width:55%;margin:6px 0 0 30%;background:var(--blue);border-radius:4px}
+
+/* ---------- meet poloshi ---------- */
+.meet{background:linear-gradient(180deg,#eef6ff 0%,#e6f5f3 100%);position:relative;overflow:hidden}
+.meet-grid{display:grid;grid-template-columns:.85fr 1.1fr 1.25fr;align-items:center;gap:28px;padding:30px 0}
+.meet-art{position:relative;height:260px}
+.meet-art .poloshi3{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.meet h2{margin:6px 0 10px;font-size:clamp(30px,3.4vw,38px);line-height:1;letter-spacing:-.035em}
+.meet h2 span{display:block;color:var(--blue)}
+.meet p.desc{color:var(--text);font-size:16px;margin:0 0 18px;max-width:44ch;line-height:1.4}
+.link-pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 18px;font-weight:600;font-size:15px}
+.link-pill b{color:var(--blue);font-weight:700}
+.link-pill svg{width:15px;height:15px;color:var(--blue)}
+.link-pill:hover{border-color:var(--blue)}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feature{background:rgba(255,255,255,.6);border-radius:var(--radius-md);padding:24px 14px;text-align:center}
+.feature.pink{background:rgba(255,236,242,.75)}
+.feature .ic{width:50px;height:50px;margin:0 auto 12px;display:grid;place-items:center}
+.feature h3{margin:0 0 4px;font-size:16px;letter-spacing:-.01em}
+.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.4}
+
+/* ---------- footer ---------- */
+footer{background:#0a1230;color:#c6cde0;padding:40px 0;font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+footer .logo{color:#fff;font-size:22px}
+footer nav{display:flex;gap:24px;flex-wrap:wrap}
+footer a:hover{color:#fff}
+
+/* ---------- motion: one gentle wave for Poloshi ---------- */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-art .poloshi{animation:float 5s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .app-grid{grid-template-columns:1fr 1fr}
+  .app-art{display:none}
+  .meet-grid{grid-template-columns:.8fr 1.2fr}
+  .features{grid-column:1/-1}
+  .tiles{transform:scale(.8);transform-origin:top right}
+}
+@media (max-width:820px){
+  .nav-links{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:18px;background:#fff;padding:20px 24px 26px;border-bottom:1px solid var(--line)}
+  .nav-links.open{display:flex}
+  .menu-btn{display:block}
+  .hero-grid{grid-template-columns:1fr;padding-top:30px}
+  .hero-art{height:380px;order:-1}
+  .hero-art .poloshi{left:50%;transform:translateX(-50%);width:240px;height:320px;animation:none}
+  .hero-art .ph.poloshi{height:300px}
+  .hello{left:0;top:30%;font-size:24px}
+  .bulb{left:auto;right:42%;width:70px}
+  .tiles{transform:scale(.55)}
+  .note{display:none}
+  .app-grid{grid-template-columns:1fr}
+  .app-info{flex-direction:column;gap:18px;padding-bottom:10px}
+  .app-icon{width:88px;height:88px;border-radius:22px}
+  .app-icon svg{width:50px;height:50px}
+  .meet-grid{grid-template-columns:1fr}
+  .meet-art{height:220px}
+}
+@media (max-width:520px){
+  .pillars{gap:14px}
+  .pillar{border:0;margin:0;padding:0;flex:1 1 40%}
+  .features{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="App4We home">
+      <!-- Logo mark (SVG). Replace with images/logo.svg if you have the original file -->
+      <svg viewBox="0 0 44 36" aria-hidden="true">
+        <defs>
+          <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1fb6ff"/><stop offset="1" stop-color="#1663f2"/></linearGradient>
+          <linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a7bff"/><stop offset="1" stop-color="#0a2fb0"/></linearGradient>
+        </defs>
+        <path d="M17 2c2-3 6-3 8 0l17 28c2 3 0 6-3.5 6-1.6 0-3-.8-3.8-2.2L22 11 15 23c-1 1.7-3 2.4-4.8 1.5C8 23.4 7.4 21 8.6 19z" fill="url(#lg1)"/>
+        <path d="M10.5 23.5 4 33.8C3.2 35.2 1.8 36 .5 36H8c1.3 0 2.6-.7 3.3-1.8l5.5-9z" fill="url(#lg2)"/>
+        <circle cx="6" cy="31" r="5" fill="url(#lg2)"/>
+      </svg>
+      App4We
+    </a>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#apps">Apps</a>
+      <a href="#poloshi">Poloshi</a>
+      <a href="#about">About</a>
+      <a href="mailto:hello@app4we.com" class="btn btn-primary btn-sm">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="about">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker">APP4WE · INDEPENDENT APP STUDIO</p>
+      <h1>Small apps.<span>Useful ideas.</span></h1>
+      <p class="lead">We create simple and practical apps that solve real everyday problems.</p>
+      <div class="hero-ctas">
+        <a href="#apps" class="btn btn-primary">Explore our apps
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#poloshi" class="btn btn-ghost">Learn about Poloshi</a>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
+          <span>Simple<br>Apps</span>
+        </div>
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5z"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2.4.6 4 2.6 4 6.5h-3"/></svg>
+          <span>For<br>Everyone</span>
+        </div>
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1v.5h5V16c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/><path d="M12 7v4l2 1"/></svg>
+          <span>Real<br>Problems</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="false">
+      <div class="hello">Hi!<br>I'm Poloshi
+        <svg viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 6c4 18 20 26 46 24M42 22l8 8-10 6"/></svg>
+      </div>
+
+      <!-- IMAGE 1: Poloshi waving (transparent PNG) -->
+      <img class="poloshi" src="images/poloshi-hero.png" alt="Poloshi, the App4We mascot, waving hello" data-ph="images/poloshi-hero.png&#10;Poloshi waving (transparent PNG)">
+
+      <!-- Lightbulb (SVG, no image needed) -->
+      <svg class="bulb" viewBox="0 0 110 120" aria-hidden="true">
+        <g stroke="#ffb400" stroke-width="5" stroke-linecap="round"><path d="M55 4v12M20 18l8 9M90 18l-8 9M6 50h12M92 50h12"/></g>
+        <defs><radialGradient id="bg1" cx=".4" cy=".35"><stop offset="0" stop-color="#fff6c2"/><stop offset=".6" stop-color="#ffd23f"/><stop offset="1" stop-color="#ffaa00"/></radialGradient></defs>
+        <circle cx="55" cy="55" r="27" fill="url(#bg1)"/>
+        <rect x="44" y="78" width="22" height="9" rx="3" fill="#1663f2"/>
+        <rect x="44" y="89" width="22" height="9" rx="3" fill="#0b4fd8"/>
+        <rect x="48" y="99" width="14" height="6" rx="3" fill="#0a3bb0"/>
+      </svg>
+
+      <!-- Floating app tiles (CSS + SVG, no images needed) -->
+      <div class="tiles" aria-hidden="true">
+        <div class="tile t1"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M8 11h8M8 14.5h8M8 18h5" stroke="#1663f2" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="tile t2"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="9.5" r="2" fill="#fff"/><path d="m4 18 5-5 4 4 3-3 5 5" /></svg></div>
+        <div class="tile t3"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 10V7a4 4 0 1 1 8 0v3h-2V7a2 2 0 1 0-4 0v3z"/><rect x="5" y="10" width="14" height="11" rx="3"/><circle cx="12" cy="15" r="1.8" fill="#6b4cf0"/></svg></div>
+        <div class="tile t4"><svg viewBox="0 0 24 24" fill="#fff"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#ffa31a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <div class="note">Turning everyday<br>problems into<br>useful apps!</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POCKET LOCKER ================= -->
+<section class="app" id="apps">
+  <div class="wrap app-grid">
+    <div class="app-info">
+      <!-- App icon: built in SVG. To use the real icon, replace this div with:
+           <img src="images/pocket-locker-icon.png" class="app-icon" alt="Pocket Locker app icon"> -->
+      <div class="app-icon" role="img" aria-label="Pocket Locker app icon">
+        <svg viewBox="0 0 64 64" fill="#fff"><path d="M20 28v-8a12 12 0 0 1 24 0v8h-7v-8a5 5 0 0 0-10 0v8z"/><path d="M14 28h36v14a14 14 0 0 1-14 14H14z"/><path d="M14 46v14h8V46z"/><ellipse cx="32" cy="40" rx="4" ry="5" fill="#1663f2"/></svg>
+      </div>
+      <div>
+        <p class="eyebrow">OUR APP</p>
+        <h2>Pocket Locker</h2>
+        <p class="sub">Secure offline Private Vault</p>
+        <p class="desc">Keep your important information organized and secure. Store documents, notes, passwords, and more — all in one private app.</p>
+        <a href="#" class="btn btn-primary btn-sm">Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="stores">
+          <!-- Replace href with your App Store link. Apple recommends its official badge: images/app-store-badge.svg -->
+          <a class="store" href="#" aria-label="Download Pocket Locker on the App Store">
+            <svg viewBox="0 0 24 24" fill="#fff"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9s-2-.9-3.4-.9C5.9 6.8 4.2 7.8 3.3 9.4c-1.9 3.3-.5 8.2 1.3 10.9.9 1.3 2 2.8 3.4 2.7 1.4-.1 1.9-.9 3.5-.9s2.1.9 3.5.9 2.4-1.3 3.2-2.7c1-1.5 1.4-3 1.4-3.1-.1 0-2.7-1-2.7-4.6zM13.9 5c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.1.1 2.3-.6 3-1.5z"/></svg>
+            <span><small>Download on the</small><b>App Store</b></span>
+          </a>
+          <!-- Replace href with your Google Play link. Google recommends its official badge: images/google-play-badge.png -->
+          <a class="store" href="#" aria-label="Get Pocket Locker on Google Play">
+            <svg viewBox="0 0 24 24"><path d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z" fill="#00d7fe"/><path d="m16.8 8.6-3.4 3.4-9.8-9.8c.3-.2.8-.2 1.2 0z" fill="#00f076"/><path d="M16.8 15.4 4.8 21.8c-.4.2-.9.2-1.2 0l9.8-9.8z" fill="#ff3a44"/><path d="m20.3 10.5-3.5-1.9-3.4 3.4 3.4 3.4 3.5-1.9c1-.6 1-2.4 0-3z" fill="#ffd400"/></svg>
+            <span><small>GET IT ON</small><b>Google Play</b></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone mockup built in HTML. Optional: swap the .screen contents for <img src="images/pocket-locker-screen.png"> -->
+    <div class="phone" aria-label="Pocket Locker app screen preview" role="img">
+      <div class="screen">
+        <div class="island"></div>
+        <header><span class="mini"><svg viewBox="0 0 64 64" fill="#fff"><path d="M20 28v-8a12 12 0 0 1 24 0v8h-7v-8a5 5 0 0 0-10 0v8z"/><path d="M14 28h36v28H14z"/></svg></span>Pocket Locker</header>
+        <div class="row"><i style="background:#ff4f8b"></i>Documents</div>
+        <div class="row"><i style="background:#ff6b5b"></i>Personal</div>
+        <div class="row"><i style="background:#2fc46b"></i>Finance</div>
+        <div class="row"><i style="background:#ff9a1f"></i>Passwords</div>
+        <div class="row"><i style="background:#ffb93d"></i>Notes</div>
+        <div class="row"><i style="background:#2aa8ff"></i>Cards</div>
+        <div class="row"><i style="background:#c3c8d4"></i>And more…</div>
+      </div>
+    </div>
+
+    <div class="app-art">
+      <!-- IMAGE 2: Poloshi holding the Pocket Locker lock (transparent PNG) -->
+      <img class="poloshi2" src="images/poloshi-locker.png" alt="Poloshi holding the Pocket Locker icon" data-ph="images/poloshi-locker.png&#10;Poloshi holding the lock icon">
+      <div class="note2">Your important<br>information.<br>Always with you.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MEET POLOSHI ================= -->
+<section class="meet" id="poloshi">
+  <div class="wrap meet-grid">
+    <div class="meet-art">
+      <!-- IMAGE 3: Poloshi lying down reading a book, with lightbulb (transparent PNG) -->
+      <img class="poloshi3" src="images/poloshi-reading.png" alt="Poloshi lying down reading a book" data-ph="images/poloshi-reading.png&#10;Poloshi reading a book">
+    </div>
+    <div>
+      <p class="eyebrow">MEET POLOSHI</p>
+      <h2>One character.<span>Many ideas.</span></h2>
+      <p class="desc">Poloshi is the friendly character behind App4We. He discovers everyday problems and helps turn them into simple and useful apps.</p>
+      <a class="link-pill" href="https://meetpoloshi.com" target="_blank" rel="noopener">Visit <b>meetpoloshi.com</b>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 48 48" width="48"><path d="M14 12h20a10 10 0 0 1 10 10v6a8 8 0 0 1-14 5l-2-2h-8l-2 2A8 8 0 0 1 4 28v-6a10 10 0 0 1 10-10z" fill="#1663f2"/><path d="M13 20v8M9 24h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="33" cy="20" r="2.4" fill="#fff"/><circle cx="37" cy="24" r="2.4" fill="#fff"/><circle cx="29" cy="24" r="2.4" fill="#fff"/><circle cx="33" cy="28" r="2.4" fill="#fff"/></svg></div>
+        <h3>Same Poloshi</h3><p>Across all our apps</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 48 48" width="48"><circle cx="24" cy="24" r="21" fill="#1fc58a"/><rect x="13" y="13" width="9" height="9" rx="2.5" fill="#0a1230"/><rect x="26" y="13" width="9" height="9" rx="2.5" fill="#fff"/><rect x="13" y="26" width="9" height="9" rx="2.5" fill="#fff"/><rect x="26" y="26" width="9" height="9" rx="2.5" fill="#0a1230"/></svg></div>
+        <h3>Different ideas</h3><p>for real life problems</p>
+      </div>
+      <div class="feature pink">
+        <div class="ic"><svg viewBox="0 0 48 48" width="48"><circle cx="24" cy="24" r="21" fill="#ff4f7b"/><path d="M24 35s-11-6.5-11-14a6 6 0 0 1 11-3.3A6 6 0 0 1 35 21c0 7.5-11 14-11 14z" fill="#fff"/></svg></div>
+        <h3>Always helpful</h3><p>Fun, friendly and with you always</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap foot">
+    <span class="logo">App4We</span>
+    <nav>
+      <a href="#apps">Apps</a>
+      <a href="#poloshi">Poloshi</a>
+      <a href="#">Privacy Policy</a>
+      <a href="mailto:hello@app4we.com">hello@app4we.com</a>
+    </nav>
+    <span>© <span id="yr"></span> App4We. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  function toggleMenu(btn){
+    const nav = document.getElementById('navLinks');
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  }
+  document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  }));
+
+  // Shows a labelled placeholder box until you add each image file
+  document.querySelectorAll('img[data-ph]').forEach(img => {
+    const swap = () => {
+      const box = document.createElement('div');
+      box.className = img.className + ' ph';
+      box.style.whiteSpace = 'pre-line';
+      box.textContent = 'Add image:\n' + img.dataset.ph;
+      img.replaceWith(box);
+    };
+    if (img.complete && img.naturalWidth === 0) swap();
+    else img.addEventListener('error', swap);
+  });
+</script>
+</body>
+</html>
